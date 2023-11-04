@@ -59,6 +59,6 @@ app.post('/users/login', async (request, reply) => {
 
 })
 
-app.listen(3333, () => {
+app.listen(port || 3333, () => {
     console.log(`Servidor iniciado na porta: 3333`);
 })
