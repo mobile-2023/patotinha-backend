@@ -11,17 +11,41 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+
 model User {
   userId    String @id @default(uuid())
   username  String
   email     String
   password  String
-  userGames Game[]
+  gameLists GameList[]
+  comments Comment[]
 }
 
+
 model Game {
-  id     String  @id
-  status String
-  User   User?   @relation(fields: [userId], references: [userId])
-  userId String?
+  gameId Int @id @default(autoincrement())
+  apiReference String
+  startedAt DateTime
+  finishedAt DateTime
+  lists GameList[]
+  comments Comment[]
+}
+
+model GameList {
+  listId Int @id @default(autoincrement())
+  name String
+  userCreator User @relation(fields: [userId], references: [userId])
+  userId String
+  games Game[]
+}
+
+
+model Comment {
+  commentId String @id
+  content String
+  rating Float
+  user User @relation(fields: [userId], references: [userId])
+  userId String @unique
+  game Game @relation(fields: [gameId], references: [gameId])
+  gameId Int @unique
 }
