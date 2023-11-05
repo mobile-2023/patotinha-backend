@@ -1,7 +1,7 @@
+import { prisma } from '../../prisma/prisma.js';
 import express, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
 const router = express.Router();
 
 router.get('/gameList/:userId', async (req: Request, res: Response) => {
