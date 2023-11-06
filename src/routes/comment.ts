@@ -51,29 +51,6 @@ router.post("/:gameId", async (req: Request, res: Response) => {
   }
 });
 
-router.put("/:commentId", async (req: Request, res: Response) => {
-  try {
-    const { commentId } = req.params;
-    const { content } = req.body;
-
-    const updateComment = await prisma.comment.update({
-      where: {
-        commentId,
-      },
-      data: {
-        content,
-      },
-    });
-
-    res.json(updateComment).status(200);
-  } catch (error) {
-    console.error(error);
-    res.json({
-      error,
-    });
-  }
-});
-
 router.get("/:userId/all", async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
@@ -117,6 +94,29 @@ router.get(
     }
   }
 );
+
+router.put("/:commentId", async (req: Request, res: Response) => {
+  try {
+    const { commentId } = req.params;
+    const { content } = req.body;
+
+    const updateComment = await prisma.comment.update({
+      where: {
+        commentId,
+      },
+      data: {
+        content,
+      },
+    });
+
+    res.json(updateComment).status(200);
+  } catch (error) {
+    console.error(error);
+    res.json({
+      error,
+    });
+  }
+});
 
 router.delete("/delete/:commentId", async (req: Request, res: Response) => {
   try {

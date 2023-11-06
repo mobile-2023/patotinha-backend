@@ -3,16 +3,6 @@ import { prisma } from "../../prisma/prisma.js";
 
 const router: Router = Router();
 
-router.get("/", async (request, reply) => {
-  try {
-    const users = await prisma.user.findMany();
-    return reply.json(users).status(200);
-  } catch (error) {
-    console.log(error);
-    reply.json(error);
-  }
-});
-
 router.post("/", async (request, reply) => {
   console.log(request.body);
 
@@ -35,16 +25,12 @@ router.post("/", async (request, reply) => {
   }
 });
 
-/* Delete User */
-router.delete("/:userId", async (request, reply) => {
-  const { userId } = request.params;
+router.get("/", async (request, reply) => {
   try {
-    await prisma.user.delete({
-      where: { userId },
-    });
-    reply.sendStatus(200);
+    const users = await prisma.user.findMany();
+    return reply.json(users).status(200);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     reply.json(error);
   }
 });
@@ -61,6 +47,20 @@ router.put("/:userId", async (request, reply) => {
         email: email,
         password: password,
       },
+    });
+    reply.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    reply.json(error);
+  }
+});
+
+/* Delete User */
+router.delete("/:userId", async (request, reply) => {
+  const { userId } = request.params;
+  try {
+    await prisma.user.delete({
+      where: { userId },
     });
     reply.sendStatus(200);
   } catch (error) {
