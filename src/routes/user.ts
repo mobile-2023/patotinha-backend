@@ -36,11 +36,11 @@ router.post("/", async (request, reply) => {
 });
 
 /* Delete User */
-router.delete("/:id", async (request, reply) => {
-  const userId = parseInt(request.params.id);
+router.delete("/:userId", async (request, reply) => {
+  const { userId } = request.params;
   try {
     await prisma.user.delete({
-      where: { id: userId },
+      where: { userId },
     });
     reply.sendStatus(200);
   } catch (error) {
@@ -50,12 +50,12 @@ router.delete("/:id", async (request, reply) => {
 });
 
 /* Update User */
-router.put("/:id", async (request, reply) => {
-  const userId = parseInt(request.params.id);
+router.put("/:userId", async (request, reply) => {
+  const { userId } = request.params;
   const { username, email, password } = request.body;
   try {
     await prisma.user.update({
-      where: { id: userId },
+      where: { userId },
       data: {
         username: username,
         email: email,
@@ -69,20 +69,21 @@ router.put("/:id", async (request, reply) => {
   }
 });
 
-
 /* Authentication */
 router.post("/login", async (request, reply) => {
   const { email, password } = request.body;
 
   try {
-    const isRegistered = await prisma.user.findMany({ where: { email: email } });
+    const isRegistered = await prisma.user.findMany({
+      where: { email: email },
+    });
     if (isRegistered.length > 0) {
       if (password === isRegistered[0].password) {
         console.log("Logando");
-        reply.sendStatus(200)
+        reply.sendStatus(200);
       } else {
         console.log("Senha incorreta");
-        reply.sendStatus(401)
+        reply.sendStatus(401);
       }
     } else {
       reply.json({ error: "User not found" }).status(401);
