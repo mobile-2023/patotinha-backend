@@ -35,6 +35,41 @@ router.post("/", async (request, reply) => {
   }
 });
 
+/* Delete User */
+router.delete("/:id", async (request, reply) => {
+  const userId = parseInt(request.params.id);
+  try {
+    await prisma.user.delete({
+      where: { id: userId },
+    });
+    reply.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    reply.json(error);
+  }
+});
+
+/* Update User */
+router.put("/:id", async (request, reply) => {
+  const userId = parseInt(request.params.id);
+  const { username, email, password } = request.body;
+  try {
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        username: username,
+        email: email,
+        password: password,
+      },
+    });
+    reply.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    reply.json(error);
+  }
+});
+
+
 /* Authentication */
 router.post("/login", async (request, reply) => {
   const { email, password } = request.body;
@@ -46,10 +81,10 @@ router.post("/login", async (request, reply) => {
         console.log("Logando");
         reply.sendStatus(200)
       } else {
-      console.log("Senha incorreta");
-      reply.sendStatus(401)
+        console.log("Senha incorreta");
+        reply.sendStatus(401)
       }
-    }else{
+    } else {
       reply.json({ error: "User not found" }).status(401);
     }
   } catch (error) {
