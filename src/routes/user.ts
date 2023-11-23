@@ -80,7 +80,7 @@ router.post("/login", async (request, reply) => {
     if (isRegistered.length > 0) {
       if (password === isRegistered[0].password) {
         console.log("Logando");
-        reply.sendStatus(200);
+        reply.json({userId: isRegistered[0].userId}).sendStatus(200);
       } else {
         console.log("Senha incorreta");
         reply.sendStatus(401);
