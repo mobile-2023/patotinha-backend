@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public class IGameListRepository extends JpaRepository<GameList, UUID> {
+public interface IGameListRepository extends JpaRepository<GameList, UUID> {
 }
