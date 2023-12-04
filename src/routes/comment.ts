@@ -18,7 +18,7 @@ interface commentInterface {
 
 router.post("/:gameId", async (req: Request, res: Response) => {
   try {
-    let { gameId } = req.params;
+    let  gameId  = req.params.gameId;
     let { content, userId }: commentInterface = req.body;
 
     const user = await prisma.user.findUnique({
@@ -53,7 +53,7 @@ router.post("/:gameId", async (req: Request, res: Response) => {
 
 router.get("/:userId/all", async (req: Request, res: Response) => {
   try {
-    const { userId } = req.params;
+    let  userId  = req.params.userId;
     const comments = await prisma.comment.findMany({
       where: { userId },
       include: {
@@ -73,7 +73,8 @@ router.get(
   "/user/:userId/id/:commentId",
   async (req: Request, res: Response) => {
     try {
-      const { userId, commentId } = req.params;
+      const  userId =req.params.userId;
+      const commentId  = req.params.commentId;
       const comment = await prisma.comment.findUnique({
         where: {
           commentId,
@@ -97,7 +98,7 @@ router.get(
 
 router.put("/:commentId", async (req: Request, res: Response) => {
   try {
-    const { commentId } = req.params;
+    const commentId  = req.params.commentId;
     const { content } = req.body;
 
     const updateComment = await prisma.comment.update({
@@ -120,7 +121,7 @@ router.put("/:commentId", async (req: Request, res: Response) => {
 
 router.delete("/delete/:commentId", async (req: Request, res: Response) => {
   try {
-    const { commentId } = req.params;
+    const commentId  = req.params.commentId;
     const deletedComment = await prisma.comment.delete({
       where: {
         commentId,

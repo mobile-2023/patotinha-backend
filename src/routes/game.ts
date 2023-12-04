@@ -22,7 +22,7 @@ router.post('/game',async (req:Request, res: Response) => {
 
 router.get("/game/:apiReference", async (req: Request, res: Response) => {
     try {
-      const { apiReference } = req.params;
+      const apiReference  = req.params.apiReference;
       const game = await prisma.game.findMany({
         where: { 
             apiReference 
@@ -37,7 +37,7 @@ router.get("/game/:apiReference", async (req: Request, res: Response) => {
 
 router.get("/game/id/:gameId", async (req: Request, res: Response) => {
     try {
-      const { gameId } = req.params;
+      const gameId = req.params.gameId;
       const game = await prisma.game.findMany({
         where: { 
             gameId 
@@ -53,7 +53,7 @@ router.get("/game/id/:gameId", async (req: Request, res: Response) => {
 router.put('/game/:gameId',async (req:Request, res: Response) => {
     try {
         const {startedAt, finishedAt } = req.body;
-        const { gameId } = req.params;
+        const gameId = req.params.gameId;
         const updatetGame = await prisma.game.update({
             where: {
                 gameId
@@ -72,7 +72,7 @@ router.put('/game/:gameId',async (req:Request, res: Response) => {
 
 router.delete('/game/:gameId',async (req:Request, res: Response) => {
     try {
-        const { gameId } = req.params;
+        const gameId = req.params.gameId;
         const deletetGame = await prisma.game.delete({
             where: {
                 gameId
