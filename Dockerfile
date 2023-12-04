@@ -1,6 +1,6 @@
 FROM openjdk:11
 
-COPY target/springApi-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build  target/springApi-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
