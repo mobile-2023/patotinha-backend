@@ -17,6 +17,39 @@ public class GameList {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }
+
     @ManyToOne
     @JoinColumn(name = "creator_id")
     private User creator;
