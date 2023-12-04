@@ -35,9 +35,36 @@ router.get("/", async (request, reply) => {
   }
 });
 
+router.get('/:userId', async (request, reply) => {
+  const userId = request.params.userId;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        userId: userId,
+      },
+      include: {
+        gameLists: {
+          include: {
+            games: true,
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      return reply.status(404).json({ error: 'Usuário não encontrado.' });
+    }
+
+    reply.status(200).json(user);
+  } catch (error) {
+    reply.status(500).json({ error: 'Erro ao obter o usuário.' });
+  }
+});
+
 /* Update User */
 router.put("/:userId", async (request, reply) => {
-  const { userId } = request.params;
+  const  userId  = request.params.userId;
   const { username, email, password } = request.body;
   try {
     await prisma.user.update({
