@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -21,5 +22,7 @@ public class Game {
     private UUID id;
     private LocalDate startedAt;
     private LocalDate finishedAt;
+    private List<GameList> gameLists;
+    private List<Comment> comments;
 
 }

@@ -19,4 +19,6 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String content;
+    private User author;
+    private Game game;
 }
