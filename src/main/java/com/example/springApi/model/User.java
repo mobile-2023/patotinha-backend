@@ -19,6 +19,8 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
+    @OneToMany(mappedBy = "creator")
     private List<GameList> gameLists;
+    @OneToMany(mappedBy = "author")
     private List<Comment> comments;
 }

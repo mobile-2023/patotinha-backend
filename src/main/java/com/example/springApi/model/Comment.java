@@ -1,9 +1,6 @@
 package com.example.springApi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,10 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String content;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
     private User author;
+    @ManyToOne
+    @JoinColumn(name = "game_id")
     private Game game;
 }

@@ -1,9 +1,6 @@
 package com.example.springApi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +19,9 @@ public class Game {
     private UUID id;
     private LocalDate startedAt;
     private LocalDate finishedAt;
+    @ManyToMany(mappedBy = "games")
     private List<GameList> gameLists;
+    @OneToMany(mappedBy = "game")
     private List<Comment> comments;
 
 }

@@ -17,6 +17,14 @@ public class GameList {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "creator_id")
     private User creator;
+    @ManyToMany
+    @JoinTable(
+            name = "games",
+            joinColumns = @JoinColumn(name = "gameList_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id")
+    )
     private List<Game> games;
 }
