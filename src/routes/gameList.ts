@@ -33,20 +33,13 @@ router.get('/gameList/:userId', async (req: Request, res: Response) => {
       where: {
         userId: userId,
       },
-      include: {
-        gameLists: {
-          include: {
-            games: true,
-          },
-        },
-      },
     });
 
     if (!user) {
       return res.status(500).json({ error: 'Usuário não encontrado.' });
     }
 
-    const gameLists = user.gameLists;
+    const gameLists = user;
 
     res.status(200).json(gameLists);
   } catch (error) {
