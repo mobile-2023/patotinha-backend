@@ -43,7 +43,7 @@ router.get('/gameList/:userId', async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'Usuário não encontrado.' });
+      return res.status(500).json({ error: 'Usuário não encontrado.' });
     }
 
     const gameLists = user.gameLists;
