@@ -90,7 +90,7 @@ router.put('/gameList/:listId', async (req: Request, res: Response) => {
                 listId: listId,
             },
             data: {
-                games,
+                games:  games,
             },
         });
 
