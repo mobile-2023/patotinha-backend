@@ -81,25 +81,27 @@ router.get('/gameList/name/:name/:userId', async (req: Request, res: Response) =
 
 //UPDATE
 router.put('/gameList/:listId', async (req: Request, res: Response) => {
-    const listId = parseInt(req.params.listId, 10);
-    const { games } = req.body;
+  const listId = parseInt(req.params.listId, 10);
+  const { games } = req.body;
 
-    try {
-        const updateGameList = await prisma.gameList.update({
-            where: {
-                listId: listId,
-            },
-            data: {
-                games:  games,
-            },
-        });
+  try {
+      const updateGameList = await prisma.gameList.update({
+          where: {
+              listId: listId,
+          },
+          data: {
+              games: {
+                  set: games, 
+              },
+          },
+      });
 
-        res.status(200).json(updateGameList);
-    }catch (error) {
-        res.status(500).json({error: `Erro ao atualizar a lista de jogos.`})
-    }
-    
+      res.status(200).json(updateGameList);
+  } catch (error) {
+      res.status(500).json({ error: `Erro ao atualizar a lista de jogos.` });
+  }
 });
+
 
 
 //DELETE
