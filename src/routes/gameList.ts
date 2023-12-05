@@ -5,7 +5,7 @@ import express, { Request, Response } from 'express';
 const router = express.Router();
 
 //CREATE
-router.post('/gamelist',async (req:Request, res: Response) => {
+router.post('/gameList',async (req:Request, res: Response) => {
     const { name, userId } = req.body;
 
 
