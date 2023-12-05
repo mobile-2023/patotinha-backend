@@ -54,6 +54,28 @@ router.get('/gameList/:userId', async (req: Request, res: Response) => {
   }
 });
 
+router.get('/gameList/name/:name/:userId', async (req: Request, res: Response) => {
+  const name = req.params.name;
+  const userId = req.params.userId
+
+  try {
+    const gameList = await prisma.gameList.findMany({
+      where: {
+        name: name,
+        userId:  userId,
+      },
+    });
+
+    if (!gameList) {
+      return res.status(500).json({ error: 'gameList não encontrado.' });
+    }
+
+    res.status(200).json(gameList);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao obter a lista de jogos do usuário.' });
+  }
+});
+
 //UPDATE
 router.put('/gameList/:listId', async (req: Request, res: Response) => {
     const listId = parseInt(req.params.listId, 10);
