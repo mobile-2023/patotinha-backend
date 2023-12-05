@@ -79,7 +79,7 @@ router.get('/gameList/name/:name/:userId', async (req: Request, res: Response) =
 //UPDATE
 router.put('/gameList/:listId', async (req: Request, res: Response) => {
     const listId = parseInt(req.params.listId, 10);
-    const { name } = req.body;
+    const { games } = req.body;
 
     try {
         const updateGameList = await prisma.gameList.update({
@@ -87,7 +87,7 @@ router.put('/gameList/:listId', async (req: Request, res: Response) => {
                 listId: listId,
             },
             data: {
-                name,
+                games,
             },
         });
 
